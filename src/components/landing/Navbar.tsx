@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
 const navItems = [
@@ -19,61 +20,78 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav
-      className={`fixed left-0 right-0 top-0 z-[200] flex items-center justify-between px-6 transition-all duration-300 md:px-14 ${
+    <motion.nav
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      className={`fixed left-0 right-0 top-0 z-[200] flex items-center justify-between px-6 transition-all duration-500 md:px-14 ${
         scrolled
-          ? "border-b border-[--border-color] bg-[rgba(10,10,10,0.96)] py-4 backdrop-blur-xl"
+          ? "glass-md py-3.5"
           : "border-b border-transparent bg-transparent py-5"
       }`}
     >
       <a href="#" className="flex items-center gap-2.5">
-        <img src="/letsdoc-white.svg" alt="Lets!DOC" className="h-8 w-auto" />
+        <motion.img
+          src="/letsdoc-white.svg"
+          alt="Lets!DOC"
+          className="h-8 w-auto"
+          whileHover={{ scale: 1.05 }}
+          transition={{ type: "spring", stiffness: 400, damping: 15 }}
+        />
       </a>
 
       <div className="hidden items-center gap-8 md:flex">
-        {navItems.map((item) => (
-          <a
+        {navItems.map((item, i) => (
+          <motion.a
             key={item.href}
             href={item.href}
-            className="font-ui text-[13px] font-semibold uppercase tracking-[1.5px] text-[--muted] transition-colors hover:text-[--w]"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 + i * 0.08 }}
+            className="relative font-ui text-[13px] font-semibold uppercase tracking-[1.5px] text-[--muted] transition-colors hover:text-[--w]"
           >
             {item.label}
-          </a>
+            <span className="absolute -bottom-1 left-0 h-px w-0 bg-[--accent] transition-all duration-300 group-hover:w-full" />
+          </motion.a>
         ))}
-        <a
+        <motion.a
           href="#agendar"
-          className="rounded-md bg-[--accent] px-6 py-[11px] font-ui text-[13px] font-bold tracking-[0.5px] text-black transition hover:-translate-y-px hover:opacity-90"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.6 }}
+          whileHover={{ scale: 1.04, y: -1 }}
+          whileTap={{ scale: 0.97 }}
+          className="rounded-md bg-[--accent] px-6 py-[11px] font-ui text-[13px] font-bold tracking-[0.5px] text-black shadow-[0_0_20px_rgba(54,169,225,0.3)] transition"
         >
           Agendar diagnóstico
-        </a>
+        </motion.a>
       </div>
 
       <button className="text-[--w] md:hidden" onClick={() => setMobileOpen(!mobileOpen)}>
         {mobileOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
 
-      {mobileOpen && (
-        <div className="absolute left-4 right-4 top-full mt-2 rounded-xl border border-[--border-m] bg-[--bg] p-4 shadow-2xl md:hidden">
-          {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={() => setMobileOpen(false)}
-              className="block py-3 font-ui text-sm font-semibold text-[--muted]"
-            >
-              {item.label}
-            </a>
-          ))}
-          <a
-            href="#agendar"
-            onClick={() => setMobileOpen(false)}
-            className="mt-2 block rounded-md bg-[--accent] px-5 py-3 text-center font-ui text-sm font-bold text-black"
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="glass-strong absolute left-4 right-4 top-full mt-2 rounded-xl p-4 shadow-2xl md:hidden"
           >
-            Agendar diagnóstico
-          </a>
-        </div>
-      )}
-    </nav>
+            {navItems.map((item) => (
+              <a key={item.href} href={item.href} onClick={() => setMobileOpen(false)} className="block py-3 font-ui text-sm font-semibold text-[--muted]">
+                {item.label}
+              </a>
+            ))}
+            <a href="#agendar" onClick={() => setMobileOpen(false)} className="mt-2 block rounded-md bg-[--accent] px-5 py-3 text-center font-ui text-sm font-bold text-black">
+              Agendar diagnóstico
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   );
 };
 

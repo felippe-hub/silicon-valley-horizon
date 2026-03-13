@@ -98,3 +98,136 @@ html { scroll-behavior: smooth }
   0%,100% { transform: translateX(-50%) translateY(0) }
   50% { transform: translateX(-50%) translateY(8px) }
 }
+
+/* ─── GLASSMORPHISM ─── */
+.glass {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.glass-md {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+.glass-strong {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+.glass-accent {
+  background: rgba(54, 169, 225, 0.06);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(54, 169, 225, 0.15);
+}
+
+/* ─── GLOW EFFECTS ─── */
+.glow-border {
+  box-shadow:
+    0 0 0 1px rgba(54, 169, 225, 0.15),
+    0 0 20px -5px rgba(54, 169, 225, 0.18),
+    0 0 40px -10px rgba(54, 169, 225, 0.08);
+}
+.glow-hover {
+  transition: box-shadow 0.5s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+.glow-hover:hover {
+  box-shadow:
+    0 0 0 1px rgba(54, 169, 225, 0.2),
+    0 0 30px -5px rgba(54, 169, 225, 0.22),
+    0 0 60px -10px rgba(54, 169, 225, 0.1);
+  border-color: rgba(54, 169, 225, 0.3) !important;
+  transform: translateY(-3px);
+}
+
+/* ─── FLOATING ANIMATIONS ─── */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) }
+  50% { transform: translateY(-14px) }
+}
+@keyframes float-medium {
+  0%, 100% { transform: translateY(0) }
+  50% { transform: translateY(-10px) }
+}
+@keyframes float-fast {
+  0%, 100% { transform: translateY(0) }
+  50% { transform: translateY(-6px) }
+}
+.float-slow { animation: float-slow 7s ease-in-out infinite }
+.float-medium { animation: float-medium 5s ease-in-out infinite }
+.float-fast { animation: float-fast 3.5s ease-in-out infinite }
+
+/* ─── ORBIT ANIMATIONS ─── */
+@keyframes orbit {
+  0% { transform: translate(0, 0) }
+  25% { transform: translate(18px, -12px) }
+  50% { transform: translate(0, -18px) }
+  75% { transform: translate(-18px, -6px) }
+  100% { transform: translate(0, 0) }
+}
+@keyframes orbit-reverse {
+  0% { transform: translate(0, 0) }
+  25% { transform: translate(-12px, 15px) }
+  50% { transform: translate(6px, 18px) }
+  75% { transform: translate(15px, 6px) }
+  100% { transform: translate(0, 0) }
+}
+.orbit-slow { animation: orbit 22s ease-in-out infinite }
+.orbit-reverse { animation: orbit-reverse 28s ease-in-out infinite }
+
+/* ─── PULSE GLOW ─── */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; transform: scale(1) }
+  50% { opacity: 0.8; transform: scale(1.05) }
+}
+.pulse-glow { animation: pulse-glow 3s ease-in-out infinite }
+
+/* ─── PLAY BUTTON PULSE ─── */
+@keyframes play-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(54, 169, 225, 0.4) }
+  70% { box-shadow: 0 0 0 20px rgba(54, 169, 225, 0) }
+  100% { box-shadow: 0 0 0 0 rgba(54, 169, 225, 0) }
+}
+.play-pulse { animation: play-pulse 2s ease-in-out infinite }
+
+/* ─── NOISE TEXTURE ─── */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.03;
+  mix-blend-mode: overlay;
+}
+
+/* ─── SCROLL PROGRESS ─── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 300;
+  transform-origin: left;
+  background: linear-gradient(90deg, #36A9E1, #8BDDFF, #F3F3F3);
+  box-shadow: 0 0 28px rgba(54, 169, 225, 0.55);
+}
+
+/* ─── CTA GLOW ─── */
+@keyframes cta-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(54, 169, 225, 0.3), 0 0 60px rgba(54, 169, 225, 0.1) }
+  50% { box-shadow: 0 0 30px rgba(54, 169, 225, 0.5), 0 0 80px rgba(54, 169, 225, 0.2) }
+}
+.cta-glow { animation: cta-glow 3s ease-in-out infinite }
+
+/* ─── DATA FLOW (for decorative lines) ─── */
+@keyframes data-flow {
+  0% { transform: translateY(100%); opacity: 0 }
+  10% { opacity: 0.6 }
+  90% { opacity: 0.6 }
+  100% { transform: translateY(-100%); opacity: 0 }
+}

@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { useFadeIn } from "@/hooks/useFadeIn";
+import { motion, useInView } from "framer-motion";
 import { MonitorSmartphone, TrendingUp, Globe, Video, Layers } from "lucide-react";
 
 const services = [
@@ -11,29 +11,57 @@ const services = [
 ];
 
 const ServicesSection = () => {
-  const ref = useRef<HTMLElement>(null);
-  useFadeIn(ref);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} id="servicos" className="fade-in bg-[--bg] px-6 py-28 md:px-14">
+    <section ref={ref} id="servicos" className="relative bg-[--bg] px-6 py-28 md:px-14">
+      <div className="pointer-events-none absolute right-[5%] top-[20%] h-[250px] w-[250px] rounded-full bg-[--accent]/[0.04] blur-[100px]" />
+
       <div className="mx-auto mb-14 max-w-[1100px]">
-        <div className="mb-5 font-ui text-[10px] font-bold uppercase tracking-[5px] text-[--accent]">Serviços</div>
-        <h2 className="mb-6 max-w-[600px] font-display text-[clamp(40px,6vw,84px)] uppercase leading-[0.95] tracking-[2px] text-[--w]">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          className="mb-5 font-ui text-[10px] font-bold uppercase tracking-[5px] text-[--accent]"
+        >
+          Serviços
+        </motion.div>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.1 }}
+          className="mb-6 max-w-[600px] font-display text-[clamp(40px,6vw,84px)] uppercase leading-[0.95] tracking-[2px] text-[--w]"
+        >
           Tudo o que precisa acontecer, sem operação picada.
-        </h2>
-        <p className="max-w-[540px] text-[17px] leading-[1.75] text-white/55">
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.2 }}
+          className="max-w-[540px] text-[17px] leading-[1.75] text-white/55"
+        >
           Serviços desenhados para funcionar como sistema, não como entregas isoladas.
-        </p>
+        </motion.p>
       </div>
+
       <div className="mx-auto grid max-w-[1100px] grid-cols-1 overflow-hidden rounded-[20px] border border-[--border-color] sm:grid-cols-2 lg:grid-cols-3">
-        {services.map(({ Icon, t, d }) => (
-          <div key={t} className="border-b border-r border-[--border-color] bg-white/[0.015] p-10 transition hover:bg-[rgba(54,169,225,0.03)]">
-            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl border border-[--border-accent] text-[--accent]">
+        {services.map(({ Icon, t, d }, i) => (
+          <motion.div
+            key={t}
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.2 + i * 0.08 }}
+            className="group border-b border-r border-[--border-color] bg-white/[0.015] p-10 transition-all duration-300 hover:bg-[rgba(54,169,225,0.03)]"
+          >
+            <motion.div
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl border border-[--border-accent] text-[--accent] transition-shadow group-hover:shadow-[0_0_20px_rgba(54,169,225,0.2)]"
+            >
               <Icon size={22} />
-            </div>
+            </motion.div>
             <div className="mb-3 font-ui text-[19px] font-bold text-[--w]">{t}</div>
             <div className="text-sm leading-[1.65] text-[--muted]">{d}</div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>

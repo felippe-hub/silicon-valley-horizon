@@ -1,57 +1,89 @@
 import { useRef, useState } from "react";
-import { useFadeIn } from "@/hooks/useFadeIn";
+import { motion, useInView } from "framer-motion";
 
 const pills = ["Estratégia", "Conteúdo", "Site", "Tráfego"];
 
 const SolutionSection = () => {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
   const [activePill, setActivePill] = useState(0);
-  useFadeIn(ref);
 
   return (
     <div className="scroll-layer-wrap relative" style={{ minHeight: "100vh" }}>
       <section
         ref={ref}
         id="solucao"
-        className="fade-in sticky top-0 flex min-h-screen flex-col justify-center overflow-hidden rounded-t-3xl bg-[--bg2]"
+        className="sticky top-0 flex min-h-screen flex-col justify-center overflow-hidden rounded-t-3xl bg-[--bg2]"
         style={{ zIndex: 2 }}
       >
+        {/* Ambient glow */}
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(54,169,225,0.06)_0%,transparent_70%)]" />
+
         <div className="mx-auto w-full max-w-[900px] px-6 py-24 text-center md:px-20">
-          <div className="mb-5 font-ui text-[10px] font-bold uppercase tracking-[5px] text-[--accent]">A Solução</div>
-          <p className="mb-3 text-xl text-[--muted]">E aqui que entra a</p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="mb-5 font-ui text-[10px] font-bold uppercase tracking-[5px] text-[--accent]"
+          >
+            A Solução
+          </motion.div>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.1, duration: 0.6 }}
+            className="mb-3 text-xl text-[--muted]"
+          >
+            E aqui que entra a
+          </motion.p>
 
-          <div className="mb-5">
-            <img
-              src="/letsdoc-white.svg"
-              alt="Lets!DOC"
-              className="mx-auto h-20 w-auto"
-              onError={(e) => {
-                (e.target as HTMLImageElement).style.display = "none";
-              }}
-            />
-          </div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ delay: 0.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="mb-5"
+          >
+            <img src="/letsdoc-white.svg" alt="Lets!DOC" className="mx-auto h-20 w-auto drop-shadow-[0_0_30px_rgba(54,169,225,0.3)]" />
+          </motion.div>
 
-          <p className="mx-auto mb-0 max-w-[540px] text-[17px] leading-[1.75] text-white/55">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.3 }}
+            className="mx-auto mb-0 max-w-[540px] text-[17px] leading-[1.75] text-white/55"
+          >
             Você cuida da medicina.<br />A gente cuida do marketing.
-          </p>
+          </motion.p>
 
-          <div className="my-8 flex flex-wrap justify-center gap-[10px] md:my-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.4 }}
+            className="my-8 flex flex-wrap justify-center gap-[10px] md:my-12"
+          >
             {pills.map((p, i) => (
-              <button
+              <motion.button
                 key={p}
                 onClick={() => setActivePill(i)}
-                className={`rounded-[20px] border px-[26px] py-[10px] font-ui text-[13px] font-bold transition-all ${
+                whileHover={{ scale: 1.06 }}
+                whileTap={{ scale: 0.95 }}
+                className={`rounded-[20px] border px-[26px] py-[10px] font-ui text-[13px] font-bold transition-all duration-300 ${
                   activePill === i
-                    ? "border-[--border-accent] bg-[--accent-dim] text-[--accent]"
-                    : "border-[--border-color] text-[--muted]"
+                    ? "border-[--border-accent] bg-[--accent-dim] text-[--accent] shadow-[0_0_15px_rgba(54,169,225,0.15)]"
+                    : "border-[--border-color] text-[--muted] hover:border-[--border-m]"
                 }`}
               >
                 {p}
-              </button>
+              </motion.button>
             ))}
-          </div>
+          </motion.div>
 
-          <div className="mx-auto grid max-w-[640px] grid-cols-1 overflow-hidden rounded-[20px] border border-[--border-color] md:grid-cols-2">
+          <motion.div
+            initial={{ opacity: 0, y: 30, scale: 0.96 }}
+            animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+            transition={{ delay: 0.5, duration: 0.7 }}
+            className="glass glow-border mx-auto grid max-w-[640px] grid-cols-1 overflow-hidden rounded-[20px] md:grid-cols-2"
+          >
             <div className="border-b border-[--border-color] p-12 text-center md:border-b-0 md:border-r">
               <div className="mb-2 font-display text-[44px] tracking-[2px] text-[--w]">VOCÊ</div>
               <div className="text-xs tracking-[1px] text-[--muted]">Consultas · Cirurgias · Pacientes</div>
@@ -62,7 +94,7 @@ const SolutionSection = () => {
               </div>
               <div className="text-xs tracking-[1px] text-[--muted]">Estratégia · Conteúdo · Tráfego</div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </div>

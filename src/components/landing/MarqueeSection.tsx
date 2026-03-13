@@ -4,7 +4,10 @@ const items = [
 ];
 
 const MarqueeSection = () => (
-  <div className="overflow-hidden border-y border-[--border-color] bg-[--bg2] py-4">
+  <div className="relative overflow-hidden border-y border-[--border-color] bg-[--bg2] py-4">
+    {/* Gradient fade edges */}
+    <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-[--bg2] to-transparent" />
+    <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-[--bg2] to-transparent" />
     <div className="marquee-animate flex w-max gap-14 whitespace-nowrap">
       {[...items, ...items].map((txt, i) => (
         <span key={i} className="flex items-center gap-14">
