@@ -29,9 +29,8 @@ const Navbar = () => {
       }`}
     >
       <div className="mx-auto flex max-w-[98rem] items-center justify-between px-4 md:px-8">
-        <a href="#" className="flex items-center gap-2.5">
-          <img src="/favicon.ico" alt="Logo Lets Doc" className="h-7 w-7 rounded-sm" />
-          <span className="font-display text-2xl font-extrabold uppercase tracking-tight text-foreground">LETS!DOC</span>
+        <a href="#" className="flex items-center gap-2">
+          <span className="font-display text-2xl font-extrabold uppercase tracking-tight text-foreground">LETS<span className="text-primary">!</span>DOC</span>
         </a>
 
         <div className="hidden items-center gap-8 md:flex">
