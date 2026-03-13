@@ -150,6 +150,7 @@
   .layer-card-light:hover {
     box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.06);
     transform: translateY(-2px);
+  }
 
   .tech-panel-dark {
     background: linear-gradient(180deg, hsl(var(--secondary) / 0.94), hsl(var(--background) / 0.96));

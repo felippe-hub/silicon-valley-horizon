@@ -46,7 +46,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.14 }}
-            className="max-w-xl text-base leading-relaxed text-foreground/75 md:text-[1.75rem]"
+            className="max-w-xl text-base leading-relaxed text-foreground/75 md:text-lg"
           >
             A Lets Doc cuida de toda a sua presença digital, da estratégia ao tráfego, para que você possa focar exclusivamente na sua prática médica.
           </motion.p>
