@@ -25,7 +25,7 @@ const Navbar = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "glass-strong py-3" : "py-5"
+        scrolled ? "glass-dark-strong py-3" : "py-5"
       }`}
     >
       <div className="mx-auto flex max-w-[98rem] items-center justify-between px-4 md:px-8">
@@ -55,10 +55,7 @@ const Navbar = () => {
           </a>
         </div>
 
-        <button
-          className="md:hidden text-lets-white"
-          onClick={() => setMobileOpen(!mobileOpen)}
-        >
+        <button className="md:hidden text-lets-white" onClick={() => setMobileOpen(!mobileOpen)}>
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
@@ -69,28 +66,16 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-strong mt-2 mx-4 rounded-xl overflow-hidden"
+            className="md:hidden glass-dark-strong mt-2 mx-4 rounded-xl overflow-hidden"
           >
             <div className="flex flex-col p-4 gap-3">
               {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="text-sm py-2 transition-colors"
-                  style={{ color: "rgba(255,255,255,0.5)" }}
-                >
-                  {item.label}
-                </a>
+                <a key={item.href} href={item.href} onClick={() => setMobileOpen(false)}
+                  className="text-sm py-2" style={{ color: "rgba(255,255,255,0.5)" }}>{item.label}</a>
               ))}
-              <a
-                href="#agendar"
-                onClick={() => setMobileOpen(false)}
+              <a href="#agendar" onClick={() => setMobileOpen(false)}
                 className="text-sm font-medium px-5 py-2.5 rounded-lg text-center mt-2"
-                style={{ background: "#36A9E1", color: "#0A0A0A" }}
-              >
-                Agendar diagnóstico
-              </a>
+                style={{ background: "#36A9E1", color: "#0A0A0A" }}>Agendar diagnóstico</a>
             </div>
           </motion.div>
         )}

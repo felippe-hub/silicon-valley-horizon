@@ -1,5 +1,5 @@
 const Footer = () => (
-  <footer className="py-10" style={{ background: "#0A0A0A", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+  <footer className="py-10 section-dark" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
     <div className="mx-auto max-w-[98rem] px-4 md:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
       <div className="font-display text-lg font-bold tracking-tight text-lets-white">
         LETS<span style={{ color: "#36A9E1" }}>!</span>DOC
