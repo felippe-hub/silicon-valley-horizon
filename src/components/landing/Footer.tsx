@@ -1,10 +1,10 @@
 const Footer = () => (
-  <footer className="py-12 border-t border-border/50">
-    <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-      <div className="font-display text-lg font-bold tracking-tight text-foreground">
-        LETS<span className="text-primary">!</span>DOC
+  <footer className="py-10" style={{ background: "#0A0A0A", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+    <div className="mx-auto max-w-[98rem] px-4 md:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="font-display text-lg font-bold tracking-tight text-lets-white">
+        LETS<span style={{ color: "#36A9E1" }}>!</span>DOC
       </div>
-      <p className="text-xs text-muted-foreground">
+      <p className="text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>
         © {new Date().getFullYear()} Lets Doc. Todos os direitos reservados.
       </p>
     </div>
