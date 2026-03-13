@@ -108,17 +108,17 @@
 
   /* Blue tinted glass */
   .glass-blue-dark {
-    background: rgba(54, 169, 225, 0.06);
+    background: rgba(54, 169, 225, 0.10);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(54, 169, 225, 0.12);
+    border: 1px solid rgba(54, 169, 225, 0.20);
   }
   .glass-blue-light {
-    background: rgba(54, 169, 225, 0.06);
+    background: rgba(54, 169, 225, 0.08);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(54, 169, 225, 0.15);
-    box-shadow: 0 4px 20px rgba(54, 169, 225, 0.08);
+    border: 1px solid rgba(54, 169, 225, 0.18);
+    box-shadow: 0 4px 20px rgba(54, 169, 225, 0.10);
   }
 
   /* ===== GLOW EFFECTS ===== */
