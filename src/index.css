@@ -141,7 +141,7 @@
 
   /* ===== LAYER CARDS ===== */
   .layer-card-dark {
-    @apply glass-dark rounded-2xl glow-border-hover relative overflow-hidden;
+    @apply glass-dark-md rounded-2xl glow-border-hover relative overflow-hidden;
   }
   .layer-card-light {
     @apply glass-light rounded-2xl relative overflow-hidden;
