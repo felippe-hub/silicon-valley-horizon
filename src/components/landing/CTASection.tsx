@@ -1,35 +1,28 @@
-import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { ArrowRight } from "lucide-react";
+import { useFadeIn } from "@/hooks/useFadeIn";
 
 const CTASection = () => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const ref = useRef<HTMLElement>(null);
+  useFadeIn(ref);
 
   return (
-    <section id="agendar" className="py-28 md:py-36 relative section-dark overflow-hidden" ref={ref}>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] blob-blue opacity-20 pointer-events-none" />
-      <div className="absolute inset-0 bg-grid-pattern opacity-[0.08] pointer-events-none" />
-
-      <div className="mx-auto max-w-[98rem] px-4 md:px-8 relative z-10">
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7 }}
-          className="max-w-2xl mx-auto text-center space-y-6">
-          <span className="section-label-dark">Comece agora</span>
-          <h2 className="font-display text-3xl md:text-[2.75rem] font-bold leading-tight text-lets-white">
-            Seu marketing não precisa ser mais uma <span className="text-gradient-blue">preocupação.</span>
-          </h2>
-          <p className="max-w-lg mx-auto" style={{ color: "rgba(255,255,255,0.5)" }}>
-            Agende um diagnóstico gratuito e descubra como a Lets Doc pode transformar sua presença digital sem adicionar complexidade à sua rotina.
-          </p>
-          <motion.div initial={{ opacity: 0, y: 15 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.3 }}>
-            <a href="https://wa.me/" target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-semibold px-8 py-4 rounded-xl transition-all group text-lg glow-border hover:opacity-90"
-              style={{ background: "#36A9E1", color: "#0A0A0A" }}>
-              Agendar diagnóstico gratuito
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </a>
-          </motion.div>
-        </motion.div>
+    <section ref={ref} id="agendar" className="fade-in bg-[--bg2] px-6 py-28 text-center md:px-14">
+      <div className="mx-auto max-w-[600px]">
+        <div className="mb-5 font-ui text-[10px] font-bold uppercase tracking-[5px] text-[--accent]">Comece agora</div>
+        <h2 className="mb-6 font-display text-[clamp(44px,7vw,88px)] uppercase leading-[0.95] tracking-[2px] text-[--w]">
+          Seu marketing não precisa ser mais uma preocupação.
+        </h2>
+        <p className="mx-auto mb-12 max-w-[540px] text-[17px] leading-[1.75] text-white/55">
+          Agende um diagnóstico gratuito e descubra como a Lets!DOC pode transformar sua presença digital sem adicionar complexidade à sua rotina.
+        </p>
+        <div className="flex flex-wrap justify-center gap-[14px]">
+          <a href="https://wa.me/5500000000000" className="rounded-lg bg-[--accent] px-[38px] py-4 font-ui text-sm font-bold tracking-[0.5px] text-black transition hover:-translate-y-0.5 hover:opacity-90">
+            Agendar diagnóstico
+          </a>
+          <a href="https://wa.me/5500000000000" className="rounded-lg border border-[--border-m] bg-transparent px-[38px] py-4 font-ui text-sm font-semibold text-[--w] transition hover:border-white/30 hover:bg-white/5">
+            Falar no WhatsApp
+          </a>
+        </div>
       </div>
     </section>
   );

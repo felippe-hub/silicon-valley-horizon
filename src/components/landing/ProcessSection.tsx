@@ -1,94 +1,58 @@
-import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
-import medicalTech from "@/assets/medical-tech.jpg";
+import { useRef, useEffect, useState } from "react";
+import { useFadeIn } from "@/hooks/useFadeIn";
 
 const steps = [
-  { num: "01", title: "Briefing", desc: "Entendemos sua especialidade, público e objetivos.", detail: "Especialidade • Público-alvo • Objetivos • Posicionamento" },
-  { num: "02", title: "Planejamento", desc: "Definimos estratégia, canais e calendário editorial.", detail: "Instagram • TikTok • LinkedIn • Calendário editorial" },
-  { num: "03", title: "Produção", desc: "Criamos conteúdo autoral, visual e textual.", detail: "Carousels • Reels • Stories • Copies" },
-  { num: "04", title: "Captação", desc: "Gravamos e fotografamos material profissional.", detail: "Vídeo 4K • Fotografia • Direção criativa" },
-  { num: "05", title: "Edição", desc: "Finalizamos peças com qualidade premium.", detail: "Color grading • Motion • Design • Finalização" },
-  { num: "06", title: "Publicação", desc: "Gerenciamos e publicamos em todos os canais.", detail: "Agendamento • Cross-posting • Hashtags • SEO" },
-  { num: "07", title: "Acompanhamento", desc: "Analisamos métricas e otimizamos resultados.", detail: "Analytics • Relatórios • Otimização • Growth" },
+  { n: "01", t: "Briefing", d: "Entendemos sua especialidade, público e objetivos para montar uma estratégia sob medida." },
+  { n: "02", t: "Planejamento", d: "Definimos estratégia, canais e calendário editorial alinhado com a sua rotina." },
+  { n: "03", t: "Produção", d: "Criamos conteúdo autoral, visual e textual com identidade própria da sua marca médica." },
+  { n: "04", t: "Captação", d: "Gravamos e fotografamos material profissional com qualidade de alto nível." },
+  { n: "05", t: "Edição", d: "Finalizamos peças com qualidade premium — cor, luz e ritmo de edição profissional." },
+  { n: "06", t: "Publicação", d: "Gerenciamos e publicamos em todos os canais: Instagram, TikTok e LinkedIn." },
+  { n: "07", t: "Acompanhamento", d: "Analisamos métricas e otimizamos continuamente para maximizar seus resultados." },
 ];
 
 const ProcessSection = () => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-  const [activeStep, setActiveStep] = useState(0);
+  const ref = useRef<HTMLElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [showSteps, setShowSteps] = useState(false);
+  useFadeIn(ref);
+
+  useEffect(() => {
+    const el = gridRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setShowSteps(true); io.disconnect(); } },
+      { threshold: 0.05 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   return (
-    <section id="processo" className="py-28 md:py-36 relative section-light section-border-light overflow-hidden" ref={ref}>
-      <div className="absolute top-[-5%] left-[-5%] w-[18rem] h-[18rem] blob-blue-light animate-orbit-slow pointer-events-none" />
-      <div className="absolute inset-0 bg-grid-light opacity-40 pointer-events-none" />
-
-      <div className="mx-auto max-w-[98rem] px-4 md:px-8 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          className="max-w-3xl mx-auto text-center space-y-4 mb-14"
-        >
-          <span className="section-label-light">Processo</span>
-          <h2 className="font-display text-3xl md:text-[2.75rem] font-bold leading-tight" style={{ color: "#0A0A0A" }}>
-            Um fluxo pensado para{" "}
-            <span className="text-gradient-blue">não travar sua rotina.</span>
-          </h2>
-          <p style={{ color: "rgba(10,10,10,0.5)" }}>
-            Cada etapa foi desenhada para manter ritmo, consistência e autonomia.
-          </p>
-        </motion.div>
-
-        <div className="grid lg:grid-cols-[280px_1fr] gap-6 max-w-5xl mx-auto">
-          {/* Step list — slides in from left */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="space-y-1"
+    <section ref={ref} id="processo" className="fade-in relative rounded-t-3xl bg-[--bg2] px-6 py-28 md:px-14" style={{ zIndex: 3 }}>
+      <div className="mx-auto mb-[72px] max-w-[1100px] text-center">
+        <div className="mb-5 font-ui text-[10px] font-bold uppercase tracking-[5px] text-[--accent]">Processo</div>
+        <h2 className="mb-6 font-display text-[clamp(40px,6vw,84px)] uppercase leading-[0.95] tracking-[2px] text-[--w]">
+          Um fluxo pensado para não travar sua rotina.
+        </h2>
+        <p className="mx-auto max-w-[540px] text-[17px] leading-[1.75] text-white/55">
+          Cada etapa foi desenhada para manter ritmo, consistência e autonomia.
+        </p>
+      </div>
+      <div ref={gridRef} className="mx-auto grid max-w-[1100px] grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {steps.map((s, i) => (
+          <div
+            key={s.n}
+            className={`rounded-2xl border border-[--border-color] bg-white/[0.025] p-9 transition-all duration-500 hover:border-[--border-accent] hover:bg-[rgba(54,169,225,0.025)] ${
+              showSteps ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+            }`}
+            style={{ transitionDelay: showSteps ? `${i * 70}ms` : "0ms" }}
           >
-            {steps.map((step, i) => (
-              <button key={i} onClick={() => setActiveStep(i)}
-                className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-300 flex items-center gap-3 ${
-                  activeStep === i ? "glass-light-md" : "hover:bg-[rgba(10,10,10,0.03)]"
-                }`}
-                style={activeStep === i ? { boxShadow: "0 0 0 1px rgba(54,169,225,0.2), 0 4px 15px rgba(54,169,225,0.1)" } : {}}
-              >
-                <span className="text-xs font-mono font-bold" style={{ color: activeStep === i ? "#36A9E1" : "rgba(10,10,10,0.3)" }}>{step.num}</span>
-                <span className="text-sm font-medium" style={{ color: activeStep === i ? "#0A0A0A" : "rgba(10,10,10,0.45)" }}>{step.title}</span>
-              </button>
-            ))}
-          </motion.div>
-
-          {/* Active step — slides in from right */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="layer-card-light p-8 lg:p-10 min-h-[340px] flex flex-col justify-center relative overflow-hidden"
-          >
-            {/* Decorative medical image faded in background */}
-            <div className="absolute top-0 right-0 w-48 h-48 opacity-[0.08] pointer-events-none">
-              <img src={medicalTech} alt="" className="w-full h-full object-cover rounded-bl-3xl" />
-            </div>
-
-            <motion.div key={activeStep} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}>
-              <div className="flex items-center gap-4 mb-6">
-                <span className="font-display text-5xl font-bold" style={{ color: "rgba(54,169,225,0.15)" }}>{steps[activeStep].num}</span>
-                <div>
-                  <span className="section-label-light">Etapa {steps[activeStep].num}</span>
-                  <h3 className="font-display text-2xl font-bold" style={{ color: "#0A0A0A" }}>{steps[activeStep].title}</h3>
-                </div>
-              </div>
-              <p className="mb-6 leading-relaxed" style={{ color: "rgba(10,10,10,0.55)" }}>{steps[activeStep].desc}</p>
-              <div className="flex flex-wrap gap-2">
-                {steps[activeStep].detail.split(" • ").map((tag) => (
-                  <span key={tag} className="text-xs glass-blue-light px-3 py-1.5 rounded-lg font-medium" style={{ color: "rgba(10,10,10,0.55)" }}>{tag}</span>
-                ))}
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
+            <div className="mb-5 font-display text-[64px] leading-none tracking-[2px] text-white/[0.07]">{s.n}</div>
+            <div className="mb-[10px] font-ui text-lg font-bold text-[--w]">{s.t}</div>
+            <div className="text-sm leading-[1.65] text-[--muted]">{s.d}</div>
+          </div>
+        ))}
       </div>
     </section>
   );

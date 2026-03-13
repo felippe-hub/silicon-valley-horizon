@@ -1,45 +1,33 @@
-import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Clock, MessageCircle, Layers } from "lucide-react";
+import { useFadeIn } from "@/hooks/useFadeIn";
 
-const reasons = [
-  { icon: Clock, title: "Operação low touch", desc: "Você não precisa participar de reuniões semanais ou aprovar cada post. Operamos de forma autônoma, com check-ins mensais.", dir: { x: -30, y: 0 } },
-  { icon: MessageCircle, title: "Comunicação direta", desc: "Sem camadas de atendimento. Fale direto com quem faz acontecer, via WhatsApp, quando precisar.", dir: { x: 0, y: 30 } },
-  { icon: Layers, title: "Centralização total", desc: "Estratégia, conteúdo, tráfego e análise em um só lugar. Zero fragmentação, zero retrabalho.", dir: { x: 30, y: 0 } },
+const cards = [
+  { n: "01", t: "Operação low touch", d: "Você não precisa participar de reuniões semanais ou aprovar cada post. Operamos de forma autônoma, com check-ins mensais." },
+  { n: "02", t: "Comunicação direta", d: "Sem camadas de atendimento. Fale direto com quem faz acontecer, via WhatsApp, quando precisar." },
+  { n: "03", t: "Centralização total", d: "Estratégia, conteúdo, tráfego e análise em um só lugar. Zero fragmentação, zero retrabalho." },
 ];
 
 const WhyUsSection = () => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const ref = useRef<HTMLElement>(null);
+  useFadeIn(ref);
 
   return (
-    <section className="py-28 md:py-36 relative section-dark section-border-dark overflow-hidden" ref={ref}>
-      <div className="absolute top-[20%] right-[-8%] w-[20rem] h-[20rem] blob-blue opacity-25 animate-orbit-slow pointer-events-none" />
-
-      <div className="mx-auto max-w-[98rem] px-4 md:px-8 relative z-10">
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7 }}
-          className="max-w-3xl mx-auto text-center space-y-4 mb-14">
-          <span className="section-label-dark">Por que a Lets Doc</span>
-          <h2 className="font-display text-3xl md:text-[2.75rem] font-bold leading-tight text-lets-white">
-            Menos reunião, <span className="text-gradient-blue">mais tração.</span>
-          </h2>
-          <p style={{ color: "rgba(255,255,255,0.5)" }}>Uma operação feita para simplificar o seu lado sem reduzir a qualidade da entrega.</p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-3 gap-4 max-w-5xl mx-auto">
-          {reasons.map((reason, i) => (
-            <motion.div key={i}
-              initial={{ opacity: 0, x: reason.dir.x, y: reason.dir.y }}
-              animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 + i * 0.12 }}
-              className="layer-card-dark p-8"
-            >
-              <div className="w-12 h-12 rounded-2xl glass-blue-dark flex items-center justify-center mb-5 glow-border">
-                <reason.icon size={20} style={{ color: "#36A9E1" }} />
-              </div>
-              <h3 className="font-display text-lg font-semibold text-lets-white mb-3">{reason.title}</h3>
-              <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>{reason.desc}</p>
-            </motion.div>
+    <section ref={ref} id="porque" className="fade-in bg-[--bg] px-6 py-28 md:px-14">
+      <div className="mx-auto max-w-[1100px]">
+        <div className="mb-5 font-ui text-[10px] font-bold uppercase tracking-[5px] text-[--accent]">Por que a Lets!DOC</div>
+        <h2 className="mb-6 max-w-[600px] font-display text-[clamp(40px,6vw,84px)] uppercase leading-[0.95] tracking-[2px] text-[--w]">
+          Menos reunião, mais tração.
+        </h2>
+        <p className="max-w-[540px] text-[17px] leading-[1.75] text-white/55">
+          Uma operação feita para simplificar o seu lado sem reduzir a qualidade da entrega.
+        </p>
+        <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-3">
+          {cards.map((c) => (
+            <div key={c.n} className="rounded-2xl border border-[--border-color] p-10 transition hover:border-[--border-accent]">
+              <div className="mb-4 font-display text-[52px] tracking-[2px] text-[--accent]">{c.n}</div>
+              <div className="mb-3 font-ui text-[17px] font-bold text-[--w]">{c.t}</div>
+              <div className="text-sm leading-[1.65] text-[--muted]">{c.d}</div>
+            </div>
           ))}
         </div>
       </div>

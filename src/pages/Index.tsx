@@ -1,6 +1,8 @@
 import Navbar from "@/components/landing/Navbar";
 import HeroSection from "@/components/landing/HeroSection";
+import MarqueeSection from "@/components/landing/MarqueeSection";
 import ProblemSection from "@/components/landing/ProblemSection";
+import SolutionSection from "@/components/landing/SolutionSection";
 import VideoSection from "@/components/landing/VideoSection";
 import ProcessSection from "@/components/landing/ProcessSection";
 import ServicesSection from "@/components/landing/ServicesSection";
@@ -13,18 +15,20 @@ import Footer from "@/components/landing/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen overflow-x-hidden" style={{ background: "#0A0A0A" }}>
+    <div className="min-h-screen overflow-x-hidden bg-[--bg]">
       <Navbar />
       <HeroSection />
-      <ProblemSection />      {/* LIGHT */}
-      <VideoSection />        {/* DARK — video + solução */}
-      <ProcessSection />      {/* LIGHT */}
-      <ServicesSection />     {/* DARK */}
-      <ResultsSection />      {/* LIGHT */}
-      <WhyUsSection />        {/* DARK */}
-      <ForWhoSection />       {/* LIGHT */}
-      <AboutSection />        {/* DARK — layered image + glass */}
-      <CTASection />          {/* DARK */}
+      <MarqueeSection />
+      <ProblemSection />
+      <SolutionSection />
+      <VideoSection />
+      <ProcessSection />
+      <ServicesSection />
+      <ResultsSection />
+      <WhyUsSection />
+      <ForWhoSection />
+      <AboutSection />
+      <CTASection />
       <Footer />
     </div>
   );
