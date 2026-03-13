@@ -1,60 +1,66 @@
-import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { useFadeIn } from "@/hooks/useFadeIn";
+
+const pains = [
+  "Sem precisar aprender marketing",
+  "Sem precisar gerenciar equipe",
+  "Sem precisar perder tempo",
+];
+
+const tags = ["Conteúdo", "Site", "Tráfego", "Estratégia"];
 
 const ProblemSection = () => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const ref = useRef<HTMLElement>(null);
+  useFadeIn(ref);
 
   return (
-    <section className="py-28 md:py-36 relative section-light section-border-light overflow-hidden" ref={ref}>
-      {/* Subtle blob on light bg */}
-      <div className="absolute top-1/3 right-[-8%] w-[20rem] h-[20rem] blob-blue-light animate-orbit-reverse pointer-events-none" />
-      <div className="absolute inset-0 bg-grid-light opacity-60 pointer-events-none" />
+    <div className="scroll-layer-wrap relative" style={{ minHeight: "100vh" }}>
+      <section
+        ref={ref}
+        id="problema"
+        className="fade-in sticky top-0 flex min-h-screen flex-col justify-center overflow-hidden bg-[--bg]"
+        style={{ zIndex: 1 }}
+      >
+        <div className="mx-auto w-full max-w-[1200px] px-6 py-24 md:px-20">
+          <div className="grid items-center gap-20 md:grid-cols-2">
+            <div>
+              <div className="mb-5 font-ui text-[10px] font-bold uppercase tracking-[5px] text-[--accent]">O Problema</div>
+              <h2 className="mb-6 max-w-[480px] font-display text-[clamp(40px,6vw,84px)] uppercase leading-[0.95] tracking-[2px] text-[--w]">
+                Sua rotina já é cheia demais para o marketing virar mais uma função.
+              </h2>
+              <div className="mb-7 h-[2px] w-12 bg-[--accent]" />
+              <p className="max-w-[540px] text-[17px] leading-[1.75] text-white/55">
+                Consultas, cirurgias, plantões, estudos. Seu dia já tem responsabilidades demais. Marketing não deveria ser mais uma.
+              </p>
+            </div>
+            <div>
+              {pains.map((p) => (
+                <div key={p} className="mb-3 flex items-center gap-4 rounded-xl border border-[--border-color] bg-white/[0.02] px-6 py-5 transition hover:border-[rgba(255,80,80,0.3)]">
+                  <div className="h-2 w-2 flex-shrink-0 rounded-full bg-[rgba(255,80,80,0.6)]" />
+                  <span className="text-[15px] text-white/65">{p}</span>
+                </div>
+              ))}
 
-      <div className="mx-auto max-w-[98rem] px-4 md:px-8 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          className="max-w-3xl mx-auto text-center space-y-5"
-        >
-          <span className="section-label-light">O Problema</span>
-          <h2 className="font-display text-3xl md:text-[2.75rem] font-bold leading-tight" style={{ color: "#0A0A0A" }}>
-            Sua rotina já é cheia demais para o marketing virar{" "}
-            <span className="text-gradient-blue">mais uma função.</span>
-          </h2>
-          <p className="text-base md:text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: "rgba(10,10,10,0.55)" }}>
-            Consultas, cirurgias, plantões, estudos. Seu dia já tem responsabilidades demais.
-            Marketing não deveria ser mais uma.
-          </p>
-        </motion.div>
-
-        {/* Cards animate from different directions */}
-        <div className="grid md:grid-cols-3 gap-5 mt-14 max-w-4xl mx-auto">
-          {[
-            { emoji: "⏰", title: "Sem tempo", desc: "Sua agenda é uma corrida contra o relógio. Cada minuto fora do consultório é um custo.", dir: "left" },
-            { emoji: "🤯", title: "Sem equipe", desc: "Gerenciar designer, copywriter e gestor de tráfego é quase uma segunda empresa.", dir: "up" },
-            { emoji: "📉", title: "Sem resultados", desc: "Posts aleatórios sem estratégia. Investimento em tráfego sem retorno mensurável.", dir: "right" },
-          ].map((item, i) => (
-            <motion.div
-              key={i}
-              initial={{
-                opacity: 0,
-                x: item.dir === "left" ? -40 : item.dir === "right" ? 40 : 0,
-                y: item.dir === "up" ? 40 : 0,
-              }}
-              animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.3 + i * 0.12 }}
-              className="layer-card-light p-7 group"
-            >
-              <div className="text-3xl mb-4">{item.emoji}</div>
-              <h3 className="font-display font-semibold mb-2" style={{ color: "#0A0A0A" }}>{item.title}</h3>
-              <p className="text-sm leading-relaxed" style={{ color: "rgba(10,10,10,0.5)" }}>{item.desc}</p>
-            </motion.div>
-          ))}
+              <div className="mt-10 rounded-2xl border border-[--border-color] bg-white/[0.025] p-7">
+                <div className="mb-4 font-ui text-[10px] font-bold uppercase tracking-[4px] text-[--accent]">LETS!DOC OPERA</div>
+                <div className="flex flex-wrap gap-[10px]">
+                  {tags.map((t, i) => (
+                    <span
+                      key={t}
+                      className={`rounded-[20px] border px-[18px] py-2 font-ui text-xs font-bold ${
+                        i === 0 ? "border-[--border-accent] text-[--accent]" : "border-[--border-color] text-[--muted]"
+                      }`}
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
 

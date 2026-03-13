@@ -1,64 +1,55 @@
-import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { useFadeIn } from "@/hooks/useFadeIn";
+
+const stats = [
+  { v: "+142%", l: "Alcance" },
+  { v: "+87%", l: "Engajamento" },
+  { v: "+2.4k", l: "Seguidores" },
+  { v: "+34%", l: "Conversões" },
+];
 
 const ResultsSection = () => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const ref = useRef<HTMLElement>(null);
+  useFadeIn(ref);
 
   return (
-    <section id="resultados" className="py-28 md:py-36 relative section-light section-border-light overflow-hidden" ref={ref}>
-      <div className="absolute top-1/4 right-[-6%] w-[18rem] h-[18rem] blob-blue-light animate-orbit-slow pointer-events-none" />
-      <div className="absolute inset-0 bg-grid-light opacity-40 pointer-events-none" />
+    <section ref={ref} id="resultado" className="fade-in bg-[--bg2] px-6 py-28 text-center md:px-14">
+      <div className="mx-auto mb-[60px] max-w-[620px]">
+        <div className="mb-5 font-ui text-[10px] font-bold uppercase tracking-[5px] text-[--accent]">Resultado</div>
+        <h2 className="mb-6 font-display text-[clamp(40px,6vw,84px)] uppercase leading-[0.95] tracking-[2px] text-[--w]">
+          Seu Instagram é sua vitrine.
+        </h2>
+        <p className="mx-auto max-w-[540px] text-[17px] leading-[1.75] text-white/55">
+          A primeira impressão do seu paciente começa no feed. Transformamos perfis genéricos em autoridade médica real.
+        </p>
+      </div>
 
-      <div className="mx-auto max-w-[98rem] px-4 md:px-8 relative z-10">
-        <motion.div initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7 }}
-          className="max-w-3xl mx-auto text-center space-y-4 mb-14">
-          <span className="section-label-light">Resultado</span>
-          <h2 className="font-display text-3xl md:text-[2.75rem] font-bold leading-tight" style={{ color: "#0A0A0A" }}>
-            Seu Instagram é sua <span className="text-gradient-blue">vitrine.</span>
-          </h2>
-          <p className="max-w-2xl mx-auto" style={{ color: "rgba(10,10,10,0.5)" }}>
-            A primeira impressão do seu paciente começa no feed. Transformamos perfis genéricos em autoridade médica real.
-          </p>
-        </motion.div>
-
-        {/* Stats — animate from different directions */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-10">
-          {[
-            { label: "Alcance", value: "+142%", dir: { x: -20, y: 0 } },
-            { label: "Engajamento", value: "+87%", dir: { x: 0, y: -20 } },
-            { label: "Seguidores", value: "+2.4k", dir: { x: 0, y: 20 } },
-            { label: "Conversões", value: "+34%", dir: { x: 20, y: 0 } },
-          ].map((stat, i) => (
-            <motion.div key={i}
-              initial={{ opacity: 0, x: stat.dir.x, y: stat.dir.y }}
-              animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
-              className="layer-card-light p-6 text-center"
-            >
-              <div className="font-display text-3xl md:text-4xl font-bold text-gradient-blue">{stat.value}</div>
-              <div className="text-[11px] mt-1.5 tracking-[0.15em] uppercase" style={{ color: "rgba(10,10,10,0.35)" }}>{stat.label}</div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Case study card — glass on light */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.5 }}
-          className="layer-card-light p-8 max-w-2xl mx-auto text-center"
-          style={{ boxShadow: "0 0 0 1px rgba(54,169,225,0.12), 0 8px 30px rgba(54,169,225,0.08)" }}
-        >
-          <div className="w-14 h-14 rounded-full glass-blue-light flex items-center justify-center mx-auto mb-4">
-            <span className="font-display font-bold text-lg" style={{ color: "#36A9E1" }}>L</span>
+      <div className="mx-auto grid max-w-[700px] grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="relative overflow-hidden rounded-2xl border border-[--border-color]">
+          <img src="/cases/dra-luanne-antes.png" alt="Instagram Dra. Luanne — Antes" className="block min-h-[300px] w-full bg-[--bg3] object-cover" loading="lazy" />
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-[20px] border border-[--border-color] bg-black/85 px-[18px] py-[7px] font-ui text-[11px] font-bold uppercase tracking-[2.5px] backdrop-blur-[10px]">
+            Antes
           </div>
-          <h3 className="font-display text-lg font-semibold mb-1" style={{ color: "#0A0A0A" }}>Dra. Luanne Gerbassi</h3>
-          <p className="text-[11px] tracking-[0.15em] uppercase mb-4" style={{ color: "rgba(10,10,10,0.35)" }}>Endocrinologia e Dermatologia</p>
-          <p className="text-sm leading-relaxed" style={{ color: "rgba(10,10,10,0.55)" }}>
-            Perfil transformado de genérico para autoridade médica reconhecida. Crescimento orgânico consistente com operação low touch.
-          </p>
-        </motion.div>
+        </div>
+        <div className="relative overflow-hidden rounded-2xl border border-[--border-color]">
+          <img src="/cases/dra-luanne-depois.png" alt="Instagram Dra. Luanne — Depois" className="block min-h-[300px] w-full bg-[--bg3] object-cover" loading="lazy" />
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-[20px] border border-[--border-accent] bg-black/85 px-[18px] py-[7px] font-ui text-[11px] font-bold uppercase tracking-[2.5px] text-[--accent] backdrop-blur-[10px]">
+            Depois
+          </div>
+        </div>
+      </div>
+
+      <p className="mt-5 font-ui text-xs tracking-[1.5px] text-[--muted]">
+        Dra. Luanne Gerbassi · Endocrinologia e Dermatologia
+      </p>
+
+      <div className="mx-auto mt-[60px] grid max-w-[800px] grid-cols-2 gap-4 md:grid-cols-4">
+        {stats.map((s) => (
+          <div key={s.l} className="text-center">
+            <div className="font-display text-[52px] tracking-[2px] text-[--accent]">{s.v}</div>
+            <div className="font-ui text-[10px] font-bold uppercase tracking-[3px] text-[--muted]">{s.l}</div>
+          </div>
+        ))}
       </div>
     </section>
   );
