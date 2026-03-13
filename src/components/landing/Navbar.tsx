@@ -14,7 +14,7 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -23,39 +23,28 @@ const Navbar = () => {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "glass-dark-strong py-3" : "py-5"
+      transition={{ duration: 0.55, ease: "easeOut" }}
+      className={`fixed left-0 right-0 top-0 z-50 border-b transition-all duration-400 ${
+        scrolled ? "border-foreground/10 bg-background/85 backdrop-blur-xl py-3" : "border-transparent bg-transparent py-5"
       }`}
     >
       <div className="mx-auto flex max-w-[98rem] items-center justify-between px-4 md:px-8">
-        <a href="#" className="font-display text-xl font-bold tracking-tight text-lets-white">
-          LETS<span className="text-lets-blue">!</span>DOC
+        <a href="#" className="flex items-center gap-2">
+          <span className="font-display text-2xl font-extrabold uppercase tracking-tight text-foreground">LETS<span className="text-primary">!</span>DOC</span>
         </a>
 
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden items-center gap-8 md:flex">
           {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="text-sm transition-colors duration-300"
-              style={{ color: "rgba(255,255,255,0.5)" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#F3F3F3")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.5)")}
-            >
+            <a key={item.href} href={item.href} className="text-sm font-semibold text-foreground/70 transition-colors hover:text-foreground">
               {item.label}
             </a>
           ))}
-          <a
-            href="#agendar"
-            className="text-sm font-medium px-5 py-2.5 rounded-lg transition-opacity hover:opacity-90"
-            style={{ background: "#36A9E1", color: "#0A0A0A" }}
-          >
+          <a href="#agendar" className="rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground transition hover:opacity-90">
             Agendar diagnóstico
           </a>
         </div>
 
-        <button className="md:hidden text-lets-white" onClick={() => setMobileOpen(!mobileOpen)}>
+        <button className="text-foreground md:hidden" onClick={() => setMobileOpen(!mobileOpen)}>
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
@@ -66,16 +55,21 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-dark-strong mt-2 mx-4 rounded-xl overflow-hidden"
+            className="mx-4 mt-2 overflow-hidden rounded-xl border border-foreground/12 bg-background/95 shadow-2xl md:hidden"
           >
-            <div className="flex flex-col p-4 gap-3">
+            <div className="flex flex-col gap-3 p-4">
               {navItems.map((item) => (
-                <a key={item.href} href={item.href} onClick={() => setMobileOpen(false)}
-                  className="text-sm py-2" style={{ color: "rgba(255,255,255,0.5)" }}>{item.label}</a>
+                <a key={item.href} href={item.href} onClick={() => setMobileOpen(false)} className="py-2 text-sm font-semibold text-foreground/80">
+                  {item.label}
+                </a>
               ))}
-              <a href="#agendar" onClick={() => setMobileOpen(false)}
-                className="text-sm font-medium px-5 py-2.5 rounded-lg text-center mt-2"
-                style={{ background: "#36A9E1", color: "#0A0A0A" }}>Agendar diagnóstico</a>
+              <a
+                href="#agendar"
+                onClick={() => setMobileOpen(false)}
+                className="mt-1 rounded-lg bg-primary px-5 py-2.5 text-center text-sm font-bold text-primary-foreground"
+              >
+                Agendar diagnóstico
+              </a>
             </div>
           </motion.div>
         )}
