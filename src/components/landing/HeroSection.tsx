@@ -1,8 +1,17 @@
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+};
 
 const ECGCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [done, setDone] = useState(false);
   const [showMetrics, setShowMetrics] = useState(false);
   const [activeLabel, setActiveLabel] = useState<"ecg" | "growth">("ecg");
 
@@ -38,22 +47,17 @@ const ECGCanvas = () => {
     function drawLine(full: number, frac: number) {
       ctx!.beginPath();
       ctx!.moveTo(pts[0][0] * W, pts[0][1] * H);
-      for (let i = 1; i < full; i++) {
-        ctx!.lineTo(pts[i][0] * W, pts[i][1] * H);
-      }
+      for (let i = 1; i < full; i++) ctx!.lineTo(pts[i][0] * W, pts[i][1] * H);
       if (full < pts.length && pts[full + 1]) {
-        const nx = (pts[full][0] + (pts[full + 1][0] - pts[full][0]) * frac) * W;
-        const ny = (pts[full][1] + (pts[full + 1][1] - pts[full][1]) * frac) * H;
-        ctx!.lineTo(nx, ny);
-      } else if (full < pts.length) {
-        ctx!.lineTo(pts[full][0] * W, pts[full][1] * H);
-      }
+        ctx!.lineTo(
+          (pts[full][0] + (pts[full + 1][0] - pts[full][0]) * frac) * W,
+          (pts[full][1] + (pts[full + 1][1] - pts[full][1]) * frac) * H
+        );
+      } else if (full < pts.length) ctx!.lineTo(pts[full][0] * W, pts[full][1] * H);
     }
 
     function draw(prog: number) {
       ctx!.clearRect(0, 0, W, H);
-
-      // Baseline
       ctx!.save();
       ctx!.strokeStyle = "rgba(255,255,255,0.07)";
       ctx!.lineWidth = 1;
@@ -66,30 +70,22 @@ const ECGCanvas = () => {
       ctx!.restore();
 
       if (prog <= 0) return;
-
-      const total = pts.length;
-      const count = prog * total;
-      const full = Math.floor(count);
-      const frac = count - full;
+      const total = pts.length, count = prog * total, full = Math.floor(count), frac = count - full;
       if (full < 2) return;
 
-      // Area fill under growth
       if (prog > 0.5) {
-        const gStart = Math.floor(0.5 * total);
-        const gEnd = Math.min(full, total - 1);
-        const gprog = Math.min(1, (prog - 0.5) * 2.2);
+        const gStart = Math.floor(0.5 * total), gEnd = Math.min(full, total - 1);
         ctx!.save();
-        ctx!.globalAlpha = gprog * 0.14;
+        ctx!.globalAlpha = Math.min(1, (prog - 0.5) * 2.2) * 0.14;
         ctx!.fillStyle = "#36A9E1";
         ctx!.beginPath();
         ctx!.moveTo(pts[gStart][0] * W, H * 0.5);
-        for (let i = gStart; i <= gEnd; i++) {
-          ctx!.lineTo(pts[i][0] * W, pts[i][1] * H);
-        }
+        for (let i = gStart; i <= gEnd; i++) ctx!.lineTo(pts[i][0] * W, pts[i][1] * H);
         if (full < total - 1 && pts[full + 1]) {
-          const cx = (pts[full][0] + (pts[full + 1][0] - pts[full][0]) * frac) * W;
-          const cy = (pts[full][1] + (pts[full + 1][1] - pts[full][1]) * frac) * H;
-          ctx!.lineTo(cx, cy);
+          ctx!.lineTo(
+            (pts[full][0] + (pts[full + 1][0] - pts[full][0]) * frac) * W,
+            (pts[full][1] + (pts[full + 1][1] - pts[full][1]) * frac) * H
+          );
         }
         ctx!.lineTo(pts[Math.min(gEnd, total - 1)][0] * W, H * 0.5);
         ctx!.closePath();
@@ -97,7 +93,6 @@ const ECGCanvas = () => {
         ctx!.restore();
       }
 
-      // Glow line
       ctx!.save();
       ctx!.strokeStyle = "rgba(54,169,225,0.25)";
       ctx!.lineWidth = 6;
@@ -107,7 +102,6 @@ const ECGCanvas = () => {
       ctx!.stroke();
       ctx!.restore();
 
-      // Main line
       ctx!.save();
       ctx!.strokeStyle = "#36A9E1";
       ctx!.lineWidth = 2;
@@ -119,7 +113,6 @@ const ECGCanvas = () => {
       ctx!.stroke();
       ctx!.restore();
 
-      // Dot at tip
       let tipX: number, tipY: number;
       if (full < total - 1 && pts[full + 1]) {
         tipX = (pts[full][0] + (pts[full + 1][0] - pts[full][0]) * frac) * W;
@@ -148,12 +141,7 @@ const ECGCanvas = () => {
     function animate() {
       progress += 0.007;
       if (progress >= 1) {
-        progress = 1;
-        animDone = true;
-        draw(1);
-        setDone(true);
-        setShowMetrics(true);
-        return;
+        progress = 1; animDone = true; draw(1); setShowMetrics(true); return;
       }
       draw(progress);
       raf = requestAnimationFrame(animate);
@@ -162,12 +150,7 @@ const ECGCanvas = () => {
     resize();
     window.addEventListener("resize", resize);
     const t = setTimeout(animate, 500);
-
-    return () => {
-      window.removeEventListener("resize", resize);
-      cancelAnimationFrame(raf);
-      clearTimeout(t);
-    };
+    return () => { window.removeEventListener("resize", resize); cancelAnimationFrame(raf); clearTimeout(t); };
   }, []);
 
   const metrics = [
@@ -179,30 +162,31 @@ const ECGCanvas = () => {
 
   return (
     <>
-      <div className="mx-auto mb-11 w-full max-w-[960px]">
+      <motion.div variants={fadeUp} className="mx-auto mb-11 w-full max-w-[960px]">
         <canvas ref={canvasRef} className="block h-[130px] w-full" />
         <div className="mt-2 flex justify-between px-[4%]">
-          <span className={`font-ui text-[10px] font-bold uppercase tracking-[3px] ${activeLabel === "ecg" ? "text-[--accent]" : "text-white/20"}`}>
+          <span className={`font-ui text-[10px] font-bold uppercase tracking-[3px] transition-colors duration-500 ${activeLabel === "ecg" ? "text-[--accent]" : "text-white/20"}`}>
             Expertise Médica
           </span>
-          <span className={`font-ui text-[10px] font-bold uppercase tracking-[3px] ${activeLabel === "growth" ? "text-[--accent]" : "text-white/20"}`}>
+          <span className={`font-ui text-[10px] font-bold uppercase tracking-[3px] transition-colors duration-500 ${activeLabel === "growth" ? "text-[--accent]" : "text-white/20"}`}>
             Crescimento Digital
           </span>
         </div>
-      </div>
+      </motion.div>
 
       <div className="mb-12 flex flex-wrap justify-center gap-3">
         {metrics.map((m, i) => (
-          <div
+          <motion.div
             key={m.label}
-            className={`min-w-[130px] rounded-[14px] border border-[--border-color] bg-white/[0.04] px-7 py-[18px] backdrop-blur-[20px] transition-all duration-500 hover:border-[--border-accent] hover:bg-[rgba(54,169,225,0.05)] ${
-              showMetrics ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
-            }`}
-            style={{ transitionDelay: showMetrics ? `${i * 110}ms` : "0ms" }}
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={showMetrics ? { opacity: 1, y: 0, scale: 1 } : {}}
+            transition={{ delay: i * 0.12, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={{ y: -4, borderColor: "rgba(54,169,225,0.3)" }}
+            className="glass glow-hover min-w-[130px] rounded-[14px] px-7 py-[18px]"
           >
             <div className="font-display text-[38px] leading-none tracking-[1px] text-[--accent]">{m.val}</div>
             <div className="mt-[5px] font-ui text-[10px] font-bold uppercase tracking-[2.5px] text-[--muted]">{m.label}</div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </>
@@ -214,40 +198,82 @@ const HeroSection = () => {
     <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pb-24 pt-32 text-center md:px-12">
       {/* Dot grid */}
       <div className="hero-dot-grid pointer-events-none absolute inset-0" />
-      {/* Ambient glow */}
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(54,169,225,0.06)_0%,transparent_65%)]" />
 
-      <div className="relative">
-        <div className="mb-7 flex items-center justify-center gap-3 font-ui text-[11px] font-bold uppercase tracking-[5px] text-[--accent]">
+      {/* Ambient blobs */}
+      <div className="pointer-events-none absolute left-[-10%] top-[10%] h-[28rem] w-[28rem] rounded-full bg-[--accent]/[0.08] blur-[100px] orbit-slow md:h-[36rem] md:w-[36rem]" />
+      <div className="pointer-events-none absolute bottom-[5%] right-[-10%] h-[22rem] w-[22rem] rounded-full bg-white/[0.04] blur-[100px] orbit-reverse md:h-[30rem] md:w-[30rem]" />
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(54,169,225,0.08)_0%,transparent_65%)]" />
+
+      {/* Floating decorative elements */}
+      <div className="pointer-events-none absolute left-[8%] top-[20%] float-slow">
+        <div className="h-1 w-1 rounded-full bg-[--accent]/40" />
+      </div>
+      <div className="pointer-events-none absolute right-[12%] top-[30%] float-medium" style={{ animationDelay: "1s" }}>
+        <div className="h-1.5 w-1.5 rounded-full bg-[--accent]/30" />
+      </div>
+      <div className="pointer-events-none absolute left-[15%] bottom-[25%] float-fast" style={{ animationDelay: "2s" }}>
+        <div className="h-1 w-1 rounded-full bg-white/20" />
+      </div>
+      <div className="pointer-events-none absolute right-[18%] bottom-[35%] float-slow" style={{ animationDelay: "3s" }}>
+        <div className="h-2 w-2 rounded-full bg-[--accent]/20" />
+      </div>
+
+      <motion.div
+        variants={stagger}
+        initial="hidden"
+        animate="visible"
+        className="relative"
+      >
+        <motion.div variants={fadeUp} className="mb-7 flex items-center justify-center gap-3 font-ui text-[11px] font-bold uppercase tracking-[5px] text-[--accent]">
           <span className="h-px max-w-[48px] flex-1 bg-[--border-accent]" />
           Marketing Médico Especializado
           <span className="h-px max-w-[48px] flex-1 bg-[--border-accent]" />
-        </div>
+        </motion.div>
 
-        <h1 className="relative mb-2 font-display text-[clamp(72px,12vw,156px)] uppercase leading-[0.92] tracking-[3px]">
+        <motion.h1 variants={fadeUp} className="relative mb-2 font-display text-[clamp(72px,12vw,156px)] uppercase leading-[0.92] tracking-[3px]">
           Marketing<br />
           <span className="text-[--accent]">Médico</span>
-        </h1>
-        <h2 className="relative mb-13 font-display text-[clamp(40px,6vw,80px)] uppercase tracking-[3px] text-white/[0.22]">
+        </motion.h1>
+        <motion.h2 variants={fadeUp} className="relative mb-13 font-display text-[clamp(40px,6vw,80px)] uppercase tracking-[3px] text-white/[0.22]">
           Sem Complicação.
-        </h2>
-      </div>
+        </motion.h2>
+      </motion.div>
 
       <ECGCanvas />
 
-      <p className="relative mb-12 max-w-[500px] text-[17px] leading-[1.75] text-white/55">
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 0.6 }}
+        className="relative mb-12 max-w-[500px] text-[17px] leading-[1.75] text-white/55"
+      >
         A Lets!DOC cuida de toda a sua presença digital, da estratégia ao tráfego,
         para que você possa focar exclusivamente na sua prática médica.
-      </p>
+      </motion.p>
 
-      <div className="relative flex flex-wrap justify-center gap-[14px]">
-        <a href="#agendar" className="rounded-lg bg-[--accent] px-[38px] py-4 font-ui text-sm font-bold tracking-[0.5px] text-black transition hover:-translate-y-0.5 hover:opacity-90">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.65, duration: 0.6 }}
+        className="relative flex flex-wrap justify-center gap-[14px]"
+      >
+        <motion.a
+          href="#agendar"
+          whileHover={{ scale: 1.04, y: -2 }}
+          whileTap={{ scale: 0.97 }}
+          className="cta-glow rounded-lg bg-[--accent] px-[38px] py-4 font-ui text-sm font-bold tracking-[0.5px] text-black transition"
+        >
           Agendar diagnóstico
-        </a>
-        <a href="#processo" className="rounded-lg border border-[--border-m] bg-transparent px-[38px] py-4 font-ui text-sm font-semibold text-[--w] transition hover:border-white/30 hover:bg-white/5">
+        </motion.a>
+        <motion.a
+          href="#processo"
+          whileHover={{ scale: 1.03, backgroundColor: "rgba(255,255,255,0.05)" }}
+          whileTap={{ scale: 0.97 }}
+          className="glass rounded-lg px-[38px] py-4 font-ui text-sm font-semibold text-[--w] transition"
+        >
           Conhecer o processo
-        </a>
-      </div>
+        </motion.a>
+      </motion.div>
 
       {/* Scroll hint */}
       <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 opacity-30" style={{ animation: "bounce-hint 2.4s ease-in-out infinite" }}>
