@@ -28,40 +28,41 @@ const Navbar = () => {
         scrolled ? "glass-strong py-3" : "py-5"
       }`}
     >
-      <div className="container mx-auto flex items-center justify-between px-6">
-        <a href="#" className="font-display text-xl font-bold tracking-tight text-foreground">
-          LETS<span className="text-primary">!</span>DOC
+      <div className="mx-auto flex max-w-[98rem] items-center justify-between px-4 md:px-8">
+        <a href="#" className="font-display text-xl font-bold tracking-tight text-lets-white">
+          LETS<span className="text-lets-blue">!</span>DOC
         </a>
 
-        {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
           {navItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-300"
+              className="text-sm transition-colors duration-300"
+              style={{ color: "rgba(255,255,255,0.5)" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "#F3F3F3")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.5)")}
             >
               {item.label}
             </a>
           ))}
           <a
             href="#agendar"
-            className="text-sm font-medium bg-primary text-primary-foreground px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity"
+            className="text-sm font-medium px-5 py-2.5 rounded-lg transition-opacity hover:opacity-90"
+            style={{ background: "#36A9E1", color: "#0A0A0A" }}
           >
             Agendar diagnóstico
           </a>
         </div>
 
-        {/* Mobile toggle */}
         <button
-          className="md:hidden text-foreground"
+          className="md:hidden text-lets-white"
           onClick={() => setMobileOpen(!mobileOpen)}
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -76,7 +77,8 @@ const Navbar = () => {
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className="text-sm text-muted-foreground hover:text-foreground py-2 transition-colors"
+                  className="text-sm py-2 transition-colors"
+                  style={{ color: "rgba(255,255,255,0.5)" }}
                 >
                   {item.label}
                 </a>
@@ -84,7 +86,8 @@ const Navbar = () => {
               <a
                 href="#agendar"
                 onClick={() => setMobileOpen(false)}
-                className="text-sm font-medium bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-center mt-2"
+                className="text-sm font-medium px-5 py-2.5 rounded-lg text-center mt-2"
+                style={{ background: "#36A9E1", color: "#0A0A0A" }}
               >
                 Agendar diagnóstico
               </a>
