@@ -13,10 +13,9 @@ const SolutionSection = () => {
       <section
         ref={ref}
         id="solucao"
-        className="sticky top-0 flex min-h-screen flex-col justify-center overflow-hidden rounded-t-3xl bg-[--bg2]"
-        style={{ zIndex: 2 }}
+        className="sticky top-0 flex min-h-screen flex-col justify-center overflow-hidden rounded-t-3xl bg-lets-black"
+        style={{ zIndex: 2, background: "#111111" }}
       >
-        {/* Ambient glow */}
         <div className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(54,169,225,0.06)_0%,transparent_70%)]" />
 
         <div className="mx-auto w-full max-w-[900px] px-6 py-24 text-center md:px-20">
@@ -24,7 +23,7 @@ const SolutionSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="mb-5 font-ui text-[10px] font-bold uppercase tracking-[5px] text-[--accent]"
+            className="mb-5 font-ui text-[10px] font-bold uppercase tracking-[5px] text-lets-blue"
           >
             A Solução
           </motion.div>
@@ -32,7 +31,7 @@ const SolutionSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.1, duration: 0.6 }}
-            className="mb-3 text-xl text-[--muted]"
+            className="mb-3 text-xl text-white/50"
           >
             E aqui que entra a
           </motion.p>
@@ -69,8 +68,8 @@ const SolutionSection = () => {
                 whileTap={{ scale: 0.95 }}
                 className={`rounded-[20px] border px-[26px] py-[10px] font-ui text-[13px] font-bold transition-all duration-300 ${
                   activePill === i
-                    ? "border-[--border-accent] bg-[--accent-dim] text-[--accent] shadow-[0_0_15px_rgba(54,169,225,0.15)]"
-                    : "border-[--border-color] text-[--muted] hover:border-[--border-m]"
+                    ? "border-lets-blue/30 bg-lets-blue/10 text-lets-blue shadow-[0_0_15px_rgba(54,169,225,0.15)]"
+                    : "border-white/[0.08] text-white/50 hover:border-white/[0.15]"
                 }`}
               >
                 {p}
@@ -84,15 +83,15 @@ const SolutionSection = () => {
             transition={{ delay: 0.5, duration: 0.7 }}
             className="glass glow-border mx-auto grid max-w-[640px] grid-cols-1 overflow-hidden rounded-[20px] md:grid-cols-2"
           >
-            <div className="border-b border-[--border-color] p-12 text-center md:border-b-0 md:border-r">
-              <div className="mb-2 font-display text-[44px] tracking-[2px] text-[--w]">VOCÊ</div>
-              <div className="text-xs tracking-[1px] text-[--muted]">Consultas · Cirurgias · Pacientes</div>
+            <div className="border-b border-white/[0.08] p-12 text-center md:border-b-0 md:border-r">
+              <div className="mb-2 font-display text-[44px] tracking-[2px] text-lets-white">VOCÊ</div>
+              <div className="text-xs tracking-[1px] text-white/50">Consultas · Cirurgias · Pacientes</div>
             </div>
             <div className="p-12 text-center">
-              <div className="mb-2 font-display text-[44px] tracking-[2px] text-[--accent]">
-                LETS<span className="text-[--w]">!</span>DOC
+              <div className="mb-2 font-display text-[44px] tracking-[2px] text-lets-blue">
+                LETS<span className="text-lets-white">!</span>DOC
               </div>
-              <div className="text-xs tracking-[1px] text-[--muted]">Estratégia · Conteúdo · Tráfego</div>
+              <div className="text-xs tracking-[1px] text-white/50">Estratégia · Conteúdo · Tráfego</div>
             </div>
           </motion.div>
         </div>

@@ -48,10 +48,9 @@ const Navbar = () => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 + i * 0.08 }}
-            className="relative font-ui text-[13px] font-semibold uppercase tracking-[1.5px] text-[--muted] transition-colors hover:text-[--w]"
+            className="relative font-ui text-[13px] font-semibold uppercase tracking-[1.5px] text-white/40 transition-colors hover:text-lets-white"
           >
             {item.label}
-            <span className="absolute -bottom-1 left-0 h-px w-0 bg-[--accent] transition-all duration-300 group-hover:w-full" />
           </motion.a>
         ))}
         <motion.a
@@ -61,13 +60,13 @@ const Navbar = () => {
           transition={{ delay: 0.6 }}
           whileHover={{ scale: 1.04, y: -1 }}
           whileTap={{ scale: 0.97 }}
-          className="rounded-md bg-[--accent] px-6 py-[11px] font-ui text-[13px] font-bold tracking-[0.5px] text-black shadow-[0_0_20px_rgba(54,169,225,0.3)] transition"
+          className="rounded-md bg-lets-blue px-6 py-[11px] font-ui text-[13px] font-bold tracking-[0.5px] text-lets-black shadow-[0_0_20px_rgba(54,169,225,0.3)] transition"
         >
           Agendar diagnóstico
         </motion.a>
       </div>
 
-      <button className="text-[--w] md:hidden" onClick={() => setMobileOpen(!mobileOpen)}>
+      <button className="text-lets-white md:hidden" onClick={() => setMobileOpen(!mobileOpen)}>
         {mobileOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
 
@@ -81,11 +80,11 @@ const Navbar = () => {
             className="glass-strong absolute left-4 right-4 top-full mt-2 rounded-xl p-4 shadow-2xl md:hidden"
           >
             {navItems.map((item) => (
-              <a key={item.href} href={item.href} onClick={() => setMobileOpen(false)} className="block py-3 font-ui text-sm font-semibold text-[--muted]">
+              <a key={item.href} href={item.href} onClick={() => setMobileOpen(false)} className="block py-3 font-ui text-sm font-semibold text-white/50">
                 {item.label}
               </a>
             ))}
-            <a href="#agendar" onClick={() => setMobileOpen(false)} className="mt-2 block rounded-md bg-[--accent] px-5 py-3 text-center font-ui text-sm font-bold text-black">
+            <a href="#agendar" onClick={() => setMobileOpen(false)} className="mt-2 block rounded-md bg-lets-blue px-5 py-3 text-center font-ui text-sm font-bold text-lets-black">
               Agendar diagnóstico
             </a>
           </motion.div>

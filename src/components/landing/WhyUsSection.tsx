@@ -12,12 +12,12 @@ const WhyUsSection = () => {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} id="porque" className="relative bg-[--bg] px-6 py-28 md:px-14">
-      <div className="pointer-events-none absolute left-[5%] bottom-[10%] h-[250px] w-[250px] rounded-full bg-[--accent]/[0.04] blur-[100px]" />
+    <section ref={ref} id="porque" className="relative bg-lets-black px-6 py-28 md:px-14">
+      <div className="pointer-events-none absolute left-[5%] bottom-[10%] h-[250px] w-[250px] rounded-full bg-lets-blue/[0.04] blur-[100px]" />
 
       <div className="mx-auto max-w-[1100px]">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} className="mb-5 font-ui text-[10px] font-bold uppercase tracking-[5px] text-[--accent]">Por que a Lets!DOC</motion.div>
-        <motion.h2 initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.1 }} className="mb-6 max-w-[600px] font-display text-[clamp(40px,6vw,84px)] uppercase leading-[0.95] tracking-[2px] text-[--w]">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} className="mb-5 font-ui text-[10px] font-bold uppercase tracking-[5px] text-lets-blue">Por que a Lets!DOC</motion.div>
+        <motion.h2 initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.1 }} className="mb-6 max-w-[600px] font-display text-[clamp(40px,6vw,84px)] uppercase leading-[0.95] tracking-[2px] text-lets-white">
           Menos reunião, mais tração.
         </motion.h2>
         <motion.p initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.2 }} className="max-w-[540px] text-[17px] leading-[1.75] text-white/55">
@@ -34,9 +34,9 @@ const WhyUsSection = () => {
               whileHover={{ y: -5, borderColor: "rgba(54,169,225,0.3)" }}
               className="glass glow-hover group rounded-2xl p-10"
             >
-              <div className="mb-4 font-display text-[52px] tracking-[2px] text-[--accent] transition-all group-hover:drop-shadow-[0_0_10px_rgba(54,169,225,0.3)]">{c.n}</div>
-              <div className="mb-3 font-ui text-[17px] font-bold text-[--w]">{c.t}</div>
-              <div className="text-sm leading-[1.65] text-[--muted]">{c.d}</div>
+              <div className="mb-4 font-display text-[52px] tracking-[2px] text-lets-blue transition-all group-hover:drop-shadow-[0_0_10px_rgba(54,169,225,0.3)]">{c.n}</div>
+              <div className="mb-3 font-ui text-[17px] font-bold text-lets-white">{c.t}</div>
+              <div className="text-sm leading-[1.65] text-white/50">{c.d}</div>
             </motion.div>
           ))}
         </div>
