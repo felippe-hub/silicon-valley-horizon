@@ -13,15 +13,13 @@ const ResultsSection = () => {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} id="resultado" className="relative bg-[--bg2] px-6 py-28 text-center md:px-14">
-      <div className="pointer-events-none absolute left-1/2 top-0 h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-[--accent]/[0.04] blur-[120px]" />
-
+    <section ref={ref} id="resultado" className="relative bg-lets-white px-6 py-28 text-center md:px-14">
       <div className="mx-auto mb-[60px] max-w-[620px]">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} className="mb-5 font-ui text-[10px] font-bold uppercase tracking-[5px] text-[--accent]">Resultado</motion.div>
-        <motion.h2 initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.1 }} className="mb-6 font-display text-[clamp(40px,6vw,84px)] uppercase leading-[0.95] tracking-[2px] text-[--w]">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} className="mb-5 font-ui text-[10px] font-bold uppercase tracking-[5px] text-lets-blue">Resultado</motion.div>
+        <motion.h2 initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.1 }} className="mb-6 font-display text-[clamp(40px,6vw,84px)] uppercase leading-[0.95] tracking-[2px] text-lets-black">
           Seu Instagram é sua vitrine.
         </motion.h2>
-        <motion.p initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.2 }} className="mx-auto max-w-[540px] text-[17px] leading-[1.75] text-white/55">
+        <motion.p initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.2 }} className="mx-auto max-w-[540px] text-[17px] leading-[1.75] text-lets-black/55">
           A primeira impressão do seu paciente começa no feed. Transformamos perfis genéricos em autoridade médica real.
         </motion.p>
       </div>
@@ -37,18 +35,18 @@ const ResultsSection = () => {
             animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
             transition={{ delay: 0.3 + i * 0.15, duration: 0.7 }}
             whileHover={{ y: -5 }}
-            className="group relative overflow-hidden rounded-2xl border border-[--border-color] transition-all duration-300 hover:border-[--border-accent]"
+            className="group relative overflow-hidden rounded-2xl border border-lets-black/10 shadow-md transition-all duration-300 hover:shadow-xl"
           >
             <div className="overflow-hidden">
               <img
                 src={item.src}
                 alt={item.alt}
-                className="block min-h-[300px] w-full bg-[--bg3] object-cover transition-transform duration-500 group-hover:scale-105"
+                className="block min-h-[300px] w-full bg-lets-black/5 object-cover transition-transform duration-500 group-hover:scale-105"
                 loading="lazy"
               />
             </div>
-            <div className={`absolute bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-[20px] border bg-black/85 px-[18px] py-[7px] font-ui text-[11px] font-bold uppercase tracking-[2.5px] backdrop-blur-[10px] ${
-              item.isAfter ? "border-[--border-accent] text-[--accent] shadow-[0_0_15px_rgba(54,169,225,0.2)]" : "border-[--border-color]"
+            <div className={`absolute bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-[20px] border px-[18px] py-[7px] font-ui text-[11px] font-bold uppercase tracking-[2.5px] backdrop-blur-[10px] ${
+              item.isAfter ? "border-lets-blue/40 bg-lets-blue/90 text-white shadow-[0_0_15px_rgba(54,169,225,0.3)]" : "border-lets-black/20 bg-white/90 text-lets-black"
             }`}>
               {item.badge}
             </div>
@@ -60,7 +58,7 @@ const ResultsSection = () => {
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : {}}
         transition={{ delay: 0.6 }}
-        className="mt-5 font-ui text-xs tracking-[1.5px] text-[--muted]"
+        className="mt-5 font-ui text-xs tracking-[1.5px] text-lets-black/40"
       >
         Dra. Luanne Gerbassi · Endocrinologia e Dermatologia
       </motion.p>
@@ -74,8 +72,8 @@ const ResultsSection = () => {
             transition={{ delay: 0.7 + i * 0.1 }}
             className="text-center"
           >
-            <div className="font-display text-[52px] tracking-[2px] text-[--accent]">{s.v}</div>
-            <div className="font-ui text-[10px] font-bold uppercase tracking-[3px] text-[--muted]">{s.l}</div>
+            <div className="font-display text-[52px] tracking-[2px] text-lets-blue">{s.v}</div>
+            <div className="font-ui text-[10px] font-bold uppercase tracking-[3px] text-lets-black/40">{s.l}</div>
           </motion.div>
         ))}
       </div>

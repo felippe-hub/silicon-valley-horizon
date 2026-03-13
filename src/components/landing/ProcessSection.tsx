@@ -16,16 +16,13 @@ const ProcessSection = () => {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} id="processo" className="relative rounded-t-3xl bg-[--bg2] px-6 py-28 md:px-14" style={{ zIndex: 3 }}>
-      {/* Ambient blob */}
-      <div className="pointer-events-none absolute left-[10%] top-[10%] h-[300px] w-[300px] rounded-full bg-[--accent]/[0.04] blur-[120px]" />
-
+    <section ref={ref} id="processo" className="relative bg-lets-white px-6 py-28 md:px-14" style={{ zIndex: 3 }}>
       <div className="mx-auto mb-[72px] max-w-[1100px] text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="mb-5 font-ui text-[10px] font-bold uppercase tracking-[5px] text-[--accent]"
+          className="mb-5 font-ui text-[10px] font-bold uppercase tracking-[5px] text-lets-blue"
         >
           Processo
         </motion.div>
@@ -33,7 +30,7 @@ const ProcessSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.1, duration: 0.6 }}
-          className="mb-6 font-display text-[clamp(40px,6vw,84px)] uppercase leading-[0.95] tracking-[2px] text-[--w]"
+          className="mb-6 font-display text-[clamp(40px,6vw,84px)] uppercase leading-[0.95] tracking-[2px] text-lets-black"
         >
           Um fluxo pensado para não travar sua rotina.
         </motion.h2>
@@ -41,7 +38,7 @@ const ProcessSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.2, duration: 0.6 }}
-          className="mx-auto max-w-[540px] text-[17px] leading-[1.75] text-white/55"
+          className="mx-auto max-w-[540px] text-[17px] leading-[1.75] text-lets-black/55"
         >
           Cada etapa foi desenhada para manter ritmo, consistência e autonomia.
         </motion.p>
@@ -54,12 +51,12 @@ const ProcessSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.2 + i * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            whileHover={{ y: -5, borderColor: "rgba(54,169,225,0.3)" }}
-            className="glass glow-hover group rounded-2xl p-9"
+            whileHover={{ y: -5, borderColor: "rgba(54,169,225,0.4)" }}
+            className="group rounded-2xl border border-lets-black/8 bg-white p-9 shadow-sm transition-all duration-300 hover:shadow-lg"
           >
-            <div className="mb-5 font-display text-[64px] leading-none tracking-[2px] text-white/[0.07] transition-colors group-hover:text-[--accent]/20">{s.n}</div>
-            <div className="mb-[10px] font-ui text-lg font-bold text-[--w]">{s.t}</div>
-            <div className="text-sm leading-[1.65] text-[--muted]">{s.d}</div>
+            <div className="mb-5 font-display text-[64px] leading-none tracking-[2px] text-lets-black/[0.07] transition-colors group-hover:text-lets-blue/30">{s.n}</div>
+            <div className="mb-[10px] font-ui text-lg font-bold text-lets-black">{s.t}</div>
+            <div className="text-sm leading-[1.65] text-lets-black/55">{s.d}</div>
           </motion.div>
         ))}
       </div>

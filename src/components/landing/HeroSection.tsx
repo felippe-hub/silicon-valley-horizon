@@ -165,10 +165,10 @@ const ECGCanvas = () => {
       <motion.div variants={fadeUp} className="mx-auto mb-11 w-full max-w-[960px]">
         <canvas ref={canvasRef} className="block h-[130px] w-full" />
         <div className="mt-2 flex justify-between px-[4%]">
-          <span className={`font-ui text-[10px] font-bold uppercase tracking-[3px] transition-colors duration-500 ${activeLabel === "ecg" ? "text-[--accent]" : "text-white/20"}`}>
+          <span className={`font-ui text-[10px] font-bold uppercase tracking-[3px] transition-colors duration-500 ${activeLabel === "ecg" ? "text-lets-blue" : "text-white/20"}`}>
             Expertise Médica
           </span>
-          <span className={`font-ui text-[10px] font-bold uppercase tracking-[3px] transition-colors duration-500 ${activeLabel === "growth" ? "text-[--accent]" : "text-white/20"}`}>
+          <span className={`font-ui text-[10px] font-bold uppercase tracking-[3px] transition-colors duration-500 ${activeLabel === "growth" ? "text-lets-blue" : "text-white/20"}`}>
             Crescimento Digital
           </span>
         </div>
@@ -184,8 +184,8 @@ const ECGCanvas = () => {
             whileHover={{ y: -4, borderColor: "rgba(54,169,225,0.3)" }}
             className="glass glow-hover min-w-[130px] rounded-[14px] px-7 py-[18px]"
           >
-            <div className="font-display text-[38px] leading-none tracking-[1px] text-[--accent]">{m.val}</div>
-            <div className="mt-[5px] font-ui text-[10px] font-bold uppercase tracking-[2.5px] text-[--muted]">{m.label}</div>
+            <div className="font-display text-[38px] leading-none tracking-[1px] text-lets-blue">{m.val}</div>
+            <div className="mt-[5px] font-ui text-[10px] font-bold uppercase tracking-[2.5px] text-white/40">{m.label}</div>
           </motion.div>
         ))}
       </div>
@@ -195,27 +195,24 @@ const ECGCanvas = () => {
 
 const HeroSection = () => {
   return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pb-24 pt-32 text-center md:px-12">
-      {/* Dot grid */}
+    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-lets-black px-6 pb-24 pt-32 text-center md:px-12">
       <div className="hero-dot-grid pointer-events-none absolute inset-0" />
 
-      {/* Ambient blobs */}
-      <div className="pointer-events-none absolute left-[-10%] top-[10%] h-[28rem] w-[28rem] rounded-full bg-[--accent]/[0.08] blur-[100px] orbit-slow md:h-[36rem] md:w-[36rem]" />
+      <div className="pointer-events-none absolute left-[-10%] top-[10%] h-[28rem] w-[28rem] rounded-full bg-lets-blue/[0.08] blur-[100px] orbit-slow md:h-[36rem] md:w-[36rem]" />
       <div className="pointer-events-none absolute bottom-[5%] right-[-10%] h-[22rem] w-[22rem] rounded-full bg-white/[0.04] blur-[100px] orbit-reverse md:h-[30rem] md:w-[30rem]" />
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(54,169,225,0.08)_0%,transparent_65%)]" />
 
-      {/* Floating decorative elements */}
       <div className="pointer-events-none absolute left-[8%] top-[20%] float-slow">
-        <div className="h-1 w-1 rounded-full bg-[--accent]/40" />
+        <div className="h-1 w-1 rounded-full bg-lets-blue/40" />
       </div>
       <div className="pointer-events-none absolute right-[12%] top-[30%] float-medium" style={{ animationDelay: "1s" }}>
-        <div className="h-1.5 w-1.5 rounded-full bg-[--accent]/30" />
+        <div className="h-1.5 w-1.5 rounded-full bg-lets-blue/30" />
       </div>
       <div className="pointer-events-none absolute left-[15%] bottom-[25%] float-fast" style={{ animationDelay: "2s" }}>
         <div className="h-1 w-1 rounded-full bg-white/20" />
       </div>
       <div className="pointer-events-none absolute right-[18%] bottom-[35%] float-slow" style={{ animationDelay: "3s" }}>
-        <div className="h-2 w-2 rounded-full bg-[--accent]/20" />
+        <div className="h-2 w-2 rounded-full bg-lets-blue/20" />
       </div>
 
       <motion.div
@@ -224,15 +221,15 @@ const HeroSection = () => {
         animate="visible"
         className="relative"
       >
-        <motion.div variants={fadeUp} className="mb-7 flex items-center justify-center gap-3 font-ui text-[11px] font-bold uppercase tracking-[5px] text-[--accent]">
-          <span className="h-px max-w-[48px] flex-1 bg-[--border-accent]" />
+        <motion.div variants={fadeUp} className="mb-7 flex items-center justify-center gap-3 font-ui text-[11px] font-bold uppercase tracking-[5px] text-lets-blue">
+          <span className="h-px max-w-[48px] flex-1 bg-lets-blue/30" />
           Marketing Médico Especializado
-          <span className="h-px max-w-[48px] flex-1 bg-[--border-accent]" />
+          <span className="h-px max-w-[48px] flex-1 bg-lets-blue/30" />
         </motion.div>
 
-        <motion.h1 variants={fadeUp} className="relative mb-2 font-display text-[clamp(72px,12vw,156px)] uppercase leading-[0.92] tracking-[3px]">
+        <motion.h1 variants={fadeUp} className="relative mb-2 font-display text-[clamp(72px,12vw,156px)] uppercase leading-[0.92] tracking-[3px] text-lets-white">
           Marketing<br />
-          <span className="text-[--accent]">Médico</span>
+          <span className="text-lets-blue">Médico</span>
         </motion.h1>
         <motion.h2 variants={fadeUp} className="relative mb-13 font-display text-[clamp(40px,6vw,80px)] uppercase tracking-[3px] text-white/[0.22]">
           Sem Complicação.
@@ -261,7 +258,7 @@ const HeroSection = () => {
           href="#agendar"
           whileHover={{ scale: 1.04, y: -2 }}
           whileTap={{ scale: 0.97 }}
-          className="cta-glow rounded-lg bg-[--accent] px-[38px] py-4 font-ui text-sm font-bold tracking-[0.5px] text-black transition"
+          className="cta-glow rounded-lg bg-lets-blue px-[38px] py-4 font-ui text-sm font-bold tracking-[0.5px] text-lets-black transition"
         >
           Agendar diagnóstico
         </motion.a>
@@ -269,13 +266,12 @@ const HeroSection = () => {
           href="#processo"
           whileHover={{ scale: 1.03, backgroundColor: "rgba(255,255,255,0.05)" }}
           whileTap={{ scale: 0.97 }}
-          className="glass rounded-lg px-[38px] py-4 font-ui text-sm font-semibold text-[--w] transition"
+          className="glass rounded-lg px-[38px] py-4 font-ui text-sm font-semibold text-lets-white transition"
         >
           Conhecer o processo
         </motion.a>
       </motion.div>
 
-      {/* Scroll hint */}
       <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 opacity-30" style={{ animation: "bounce-hint 2.4s ease-in-out infinite" }}>
         <span className="font-ui text-[9px] uppercase tracking-[4px]">Scroll</span>
         <div className="h-11 w-px bg-gradient-to-b from-white to-transparent" />

@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 import Navbar from "@/components/landing/Navbar";
 import HeroSection from "@/components/landing/HeroSection";
 import MarqueeSection from "@/components/landing/MarqueeSection";
@@ -18,7 +18,7 @@ const Index = () => {
   const { scrollYProgress } = useScroll();
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[--bg]">
+    <div className="min-h-screen overflow-x-hidden bg-lets-black">
       {/* Scroll progress bar */}
       <motion.div
         className="scroll-progress"
